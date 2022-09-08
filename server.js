@@ -36,6 +36,9 @@ app.use("/sessions", sessionsController)
 //Routes / Controllers
 app.use("/users", userController)
 
+app.get("/", (req, res)=>{
+    res.render("index.ejs")
+})
 
 //Server Test
 // app.get("/", (req, res)=>{
