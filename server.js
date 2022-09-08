@@ -4,6 +4,7 @@ require("dotenv").config();
 const mongoose = require("mongoose")
 const userController = require("./controllers/users")
 const session = require("express-session")
+const sessionsController = require("./controllers/sessions")
 
 const PORT = process.env.PORT
 
@@ -30,6 +31,7 @@ app.use(
         saveUninitialized: false
     })
 )
+app.use("/sessions", sessionsController)
 
 //Routes / Controllers
 app.use("/users", userController)
