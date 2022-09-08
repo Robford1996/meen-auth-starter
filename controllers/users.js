@@ -15,5 +15,8 @@ module.exports = userRouter;
 userRouter.post("/", (req, res)=>{
 // overwrite the user password with the hashed password,
 req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
-res.send(req.body)
+
+User.create(req.body, (error, createdUser)=>{
+res.redirect("/")
+})
 })

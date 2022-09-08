@@ -3,6 +3,7 @@ const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose")
 const userController = require("./controllers/users")
+const session = require("express-session")
 
 const PORT = process.env.PORT
 
@@ -22,7 +23,13 @@ db.on("disconnected", ()=> console.log("mongo disconnected"))
 //Middleware
 //Body Parser middleware: give us access to req.body
 app.use(express.urlencoded({extended: true}))
-
+app.use(
+    session({
+        secret: process.env.SECRET,
+        resave: false,
+        saveUninitialized: false
+    })
+)
 
 //Routes / Controllers
 app.use("/users", userController)
