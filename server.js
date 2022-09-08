@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 const userController = require("./controllers/users")
 const session = require("express-session")
 const sessionsController = require("./controllers/sessions")
+const methodOverride = require("method-override")
 
 const PORT = process.env.PORT
 
@@ -32,12 +33,21 @@ app.use(
     })
 )
 app.use("/sessions", sessionsController)
+app.use(methodOverride("_method"))
 
 //Routes / Controllers
 app.use("/users", userController)
 
 app.get("/", (req, res)=>{
-    res.render("index.ejs")
+    if (req.session.currentUser){
+        res.render("dashboard.ejs", {
+            currentUser: req.session.currentUser
+        })
+    }else{
+        res.render("index.ejs", {
+            currentUser: req.session.currentUser
+        })
+    }
 })
 
 //Server Test
