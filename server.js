@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose")
+const userController = require("./controllers/users")
 
 const PORT = process.env.PORT
 
@@ -21,6 +22,11 @@ db.on("disconnected", ()=> console.log("mongo disconnected"))
 //Middleware
 //Body Parser middleware: give us access to req.body
 app.use(express.urlencoded({extended: true}))
+
+
+//Routes / Controllers
+app.use("/users", userController)
+
 
 //Server Test
 // app.get("/", (req, res)=>{
